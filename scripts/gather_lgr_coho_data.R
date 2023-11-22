@@ -74,6 +74,18 @@ compress_obs %>%
   tabyl(node) %>%
   adorn_totals()
 
+fallbacks = compress_obs %>%
+  group_by(tag_code) %>%
+  filter(any(node == "GRS")) %>%
+  distinct(tag_code) %>%
+  nrow() 
+
+reascenders = compress_obs %>%
+  group_by(tag_code) %>%
+  filter(any(node == "GRS") & any(node == "LGR" & slot > min(slot[node == "GRS"]))) %>%
+  distinct(tag_code) %>%
+  nrow() 
+
 # write out objects for analysis
 write_csv(compress_obs,
           file = "data/sy23_coho_lgr_dart_obs.csv")
