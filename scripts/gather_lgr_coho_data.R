@@ -15,7 +15,7 @@ library(here)
 library(janitor)
 
 # load configuration
-load("data/site_config_LGR_20231012.rda") ; rm(sites_sf, flowlines, parent_child, pc_nodes, pc_paths)
+load("data/site_config_LGR_20231117.rda") ; rm(sites_sf, flowlines, parent_child, pc_nodes, node_paths)
 
 # query DART to return all PIT tags observed at GRA, as well as any subsequent detections upstream,
 # and compress them
