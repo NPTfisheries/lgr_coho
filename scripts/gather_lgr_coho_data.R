@@ -3,7 +3,7 @@
 # Authors: Mike Ackerman and Ryan N. Kinzer 
 # 
 # Created: October 25, 2023
-#   Last Modified: 
+#   Last Modified: November 6, 2024
 
 # install PITcleanr, if not already installed
 # remotes::install_github("KevinSee/PITcleanr@develop")
@@ -16,12 +16,13 @@ library(janitor)
 
 # load configuration
 load("data/site_config_LGR_20231117.rda") ; rm(sites_sf, flowlines, parent_child, pc_nodes, node_paths)
+yr = 2024
 
 # query DART to return all PIT tags observed at GRA, as well as any subsequent detections upstream,
 # and compress them
 dart_ls = compressDART(species = "Coho",
                        loc = "GRA",
-                       spawn_year = 2023,
+                       spawn_year = yr,
                        configuration = configuration)
 
 # extract all dart observations
@@ -43,7 +44,7 @@ mark_data = dart_obs %>%
 # just fish marked at lgr in 2023
 mark_lgr_23 = mark_data %>%
   filter(mark_site == "LGRLDR",
-         year(mark_date) == 2023)
+         year(mark_date) == yr)
 
 # number of coho pit tagged per day at LGR
 pits_per_day = mark_lgr_23 %>%
@@ -88,4 +89,4 @@ reascenders = compress_obs %>%
 
 # write out objects for analysis
 write_csv(compress_obs,
-          file = "data/sy23_coho_lgr_dart_obs.csv")
+          file = paste0("data/sy", yr, "_coho_lgr_dart_obs.csv"))
