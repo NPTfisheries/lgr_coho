@@ -15,7 +15,8 @@ library(here)
 library(janitor)
 
 # load configuration
-load("data/site_config_LGR_20231117.rda") ; rm(sites_sf, flowlines, parent_child, pc_nodes, node_paths)
+#load("data/site_config_LGR_20231117.rda") ; rm(sites_sf, flowlines, parent_child, pc_nodes, node_paths)
+load("C:/Git/SnakeRiverFishStatus/data/configuration_files/site_config_LGR_20241105.rda"); rm(crb_sites_sf, flowlines, parent_child, sr_site_pops)
 yr = 2024
 
 # query DART to return all PIT tags observed at GRA, as well as any subsequent detections upstream,
@@ -41,20 +42,20 @@ mark_data = dart_obs %>%
   distinct(tag_code, 
            .keep_all = TRUE)
 
-# just fish marked at lgr in 2023
-mark_lgr_23 = mark_data %>%
+# just fish marked at lgr in yr
+mark_lgr_yr = mark_data %>%
   filter(mark_site == "LGRLDR",
          year(mark_date) == yr)
 
 # number of coho pit tagged per day at LGR
-pits_per_day = mark_lgr_23 %>%
+pits_per_day = mark_lgr_yr %>%
   tabyl(mark_date) %>%
   adorn_totals()
 
-# compile compressed obs for fish marked at lgr in 2023
+# compile compressed obs for fish marked at lgr in yr
 compress_obs = dart_ls %>%
   pluck("compress_obs") %>%
-  inner_join(mark_lgr_23) %>%
+  inner_join(mark_lgr_yr) %>%
   # I need to figure out what these few observations are...
   filter(!is.na(node))
 
