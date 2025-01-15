@@ -16,7 +16,7 @@ library(janitor)
 
 # load configuration
 #load("data/site_config_LGR_20231117.rda") ; rm(sites_sf, flowlines, parent_child, pc_nodes, node_paths)
-load("C:/Git/SnakeRiverFishStatus/data/configuration_files/site_config_LGR_20241105.rda"); rm(crb_sites_sf, flowlines, parent_child, sr_site_pops)
+load("C:/Git/SnakeRiverFishStatus/data/configuration_files/site_config_LGR_20241226.rda"); rm(crb_sites_sf, flowlines, parent_child, sr_site_pops)
 yr = 2024
 
 # query DART to return all PIT tags observed at GRA, as well as any subsequent detections upstream,
